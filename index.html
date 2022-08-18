@@ -2,9 +2,14 @@
 <html>
   <head>
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+    <script>
+      function redirect(){
+        window.location.href="http://" + $("#url").val();
+      }
+    </script>
   </head>
   <body>
-    <form onsubmit="window.location.href=$(\"#url\").val()">
+    <form onsubmit="redirect()">
       <input id="url" type="text" />
     </form>
   </body>
