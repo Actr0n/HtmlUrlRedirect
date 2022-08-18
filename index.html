@@ -4,12 +4,13 @@
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
     <script>
       function redirect(){
-        window.location.href="http://" + $("#url").val();
+        window.location = "http://" + $("#url").val();
+        return false;
       }
     </script>
   </head>
   <body>
-    <form onsubmit="redirect()">
+    <form onsubmit="return redirect()">
       <input id="url" type="text" />
     </form>
   </body>
