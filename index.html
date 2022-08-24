@@ -5,10 +5,10 @@
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
     <script>
       function redirect(){
-        window.location = $("#url").val();
         var recentPages = window.localStorage.getItem("recent");
         recentPages.push(window.location);
         window.location.setItem("recent", recentPages);
+        window.location = $("#url").val();
         return false;
       }
       jQuery(function(){
