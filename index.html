@@ -4,23 +4,34 @@
     <title>URL</title>
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
     <script>
+      function getStorageItem(item)
+      {
+        var storageItem = window.localStorage.getItem(item);
+        if (storageItem != null) return JSON.parse(storageItem);
+        return null;
+      }
+      function setStorageItem(item, val)
+      {
+        window.localStorage.setItem(item, JSON.stringify(val));
+      }
       function redirect(){
-        var recentPages = window.localStorage.getItem("recent");
+        var recentPages = getStorageItem("recent");
         if (recentPages == null) recentPages = [];
         
-        recentPages.push(window.location);
-        window.location.setItem("recent", recentPages);
+        recentPages.push($("#url").val());
+        setStorageItem("recent", recentPages);
         window.location = $("#url").val();
         return false;
       }
       jQuery(function(){
-        var recentPages = window.localStorage.getItem("recent");
+        var recentPages = getStorageItem("recent");
         if (recentPages == null) recentPages = [];
         
-        recentPages.reverse().forEach(function(current, index, arr){
-          if (index < 10)
-            $("#recentpages-content").append(`<p><a href=\"${current}\">${current}</a></p>`);
-        });
+        for(let recentPagesIndex = recentPages.length - 1; recentPagesIndex >= 0; recentPagesIndex--){
+          var current = recentPages[recentPagesIndex];
+          if (recentPagesIndex < 10)
+            $("#recentpages-content").append(`<li><a href=\"${current}\"><h2>${current}</h2></a></li>`);
+        }
       });
     </script>
   </head>
@@ -28,7 +39,7 @@
     <form onsubmit="return redirect()">
       <input value="http://" autocomplete="off" style="width: 90vw; height: 25vh; font-size: 25vh;" id="url" type="text" />
     </form>
-    <h1>Recent Pages</h1>
+    <h1 style="font-size: 25vh;">Recent Pages</h1>
     <ul id="recentpages-content">
     </ul>
   </body>
