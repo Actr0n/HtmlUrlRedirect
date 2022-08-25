@@ -30,7 +30,7 @@
         for(let recentPagesIndex = recentPages.length - 1; recentPagesIndex >= 0; recentPagesIndex--){
           var current = recentPages[recentPagesIndex];
           if (recentPagesIndex < 10)
-            $("#recentpages-content").append(`<li><a href=\"${current}\"><h2>${current}</h2></a></li>`);
+            $("#recentpages-content").append(`<li><a style=\"font-size: 15vh;\" href=\"${current}\">${current}</a></li>`);
         }
       });
     </script>
@@ -39,7 +39,7 @@
     <form onsubmit="return redirect()">
       <input value="http://" autocomplete="off" style="width: 90vw; height: 25vh; font-size: 25vh;" id="url" type="text" />
     </form>
-    <h2>Recent Pages</h2>
+    <div style=\"font-size: 15vh;\">Recent Pages</div>
     <ul id="recentpages-content">
     </ul>
   </body>
