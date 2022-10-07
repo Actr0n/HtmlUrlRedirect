@@ -23,23 +23,36 @@
         window.location = $("#url").val();
         return false;
       }
+      function displayList(contentArray, contentSelector, maxItems, listItemFunction){
+        for(let recentPagesIndex = recentPages.length - 1; recentPagesIndex >= 0; recentPagesIndex--){
+          var current = contentArray[recentPagesIndex];
+          if (recentPagesIndex < maxItems)
+            $(contentSelector).append(listItemFunction(current));
+        }
+      }
       jQuery(function(){
         var recentPages = getStorageItem("recent");
         if (recentPages == null) recentPages = [];
         
-        for(let recentPagesIndex = recentPages.length - 1; recentPagesIndex >= 0; recentPagesIndex--){
-          var current = recentPages[recentPagesIndex];
-          if (recentPagesIndex < 10)
-            $("#recentpages-content").append(`<li><a style=\"font-size: 5vh;\" href=\"${current}\">${current}</a></li>`);
-        }
+        var favorites = getStorageItem("favorites");
+        if (favorites == null) favorites = [];
+        
+        displayList(favorites, "#favorites-content", 10, (current) => {return `<li><a style=\"font-size: 5vh;\" href=\"${current}\">${current}</a></li>`});
+        displayList(recentPages, "#recentpages-content", 10, (current) => {return `<li><a style=\"font-size: 5vh;\" href=\"${current}\">${current}</a></li>`});
       });
     </script>
   </head>
   <body>
     <form onsubmit="return redirect()">
-      <input value="http://" autocomplete="off" style="width: 90vw; height: 25vh; font-size: 25vh;" id="url" type="text" />
+      <input value="http://" autocomplete="off" style="width: 88vw; height: 23vh; font-size: 23vh;" id="url" type="text" />
     </form>
-    <div style=\"font-size: 10vh;\">Recent Pages</div>
+    <form onsubmit="return addPageToFavorites()">
+      <input type="button" style="width: 90vw; height: 25vh; font-size: 23vh;" id="btnFavorites">Add Page To Favorites</input>
+    </form>
+    <div style=\"font-size: 8vh;\">Favorites</div>
+    <ul id="favorites-content">
+    </ul>
+    <div style=\"font-size: 8vh;\">Recent Pages</div>
     <ul id="recentpages-content">
     </ul>
   </body>
