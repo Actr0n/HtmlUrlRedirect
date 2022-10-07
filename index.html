@@ -23,6 +23,15 @@
         window.location = $("#url").val();
         return false;
       }
+      function addPageToFavorites(){
+        var favorites = getStorageItem("favorites");
+        if (favorites == null) favorites = [];
+        
+        favorites.push($("#url").val());
+        setStorageItem("favorites", favorites);
+        alert("Added to favorites");
+        return false;
+      }
       function displayList(contentArray, contentSelector, maxItems, listItemFunction){
         for(let recentPagesIndex = recentPages.length - 1; recentPagesIndex >= 0; recentPagesIndex--){
           var current = contentArray[recentPagesIndex];
@@ -47,12 +56,12 @@
       <input value="http://" autocomplete="off" style="width: 88vw; height: 23vh; font-size: 23vh;" id="url" type="text" />
     </form>
     <form onsubmit="return addPageToFavorites()">
-      <input type="button" style="width: 90vw; height: 25vh; font-size: 23vh;" id="btnFavorites">Add Page To Favorites</input>
+      <button type="button" style="width: 90vw; height: 25vh; font-size: 23vh;" id="btnFavorites" >Add Page To Favorites</button>
     </form>
-    <div style=\"font-size: 8vh;\">Favorites</div>
+    <div style="font-size: 8vh;">Favorites</div>
     <ul id="favorites-content">
     </ul>
-    <div style=\"font-size: 8vh;\">Recent Pages</div>
+    <div style="font-size: 8vh;">Recent Pages</div>
     <ul id="recentpages-content">
     </ul>
   </body>
