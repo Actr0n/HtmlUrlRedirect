@@ -46,7 +46,7 @@
         var favorites = getStorageItem("favorites");
         if (favorites == null) favorites = [];
         
-        displayList(favorites, "#favorites-content", 10, (current) => {return `<li><a style=\"font-size: 5vh;\" href=\"${current}\">${current}</a></li>`});
+        displayList(favorites, "#favorites-content", 10, (current) => {return `<li><a style=\"font-size: 5vh;\" href=\"${current}\">${current}</a><</li>`});
         displayList(recentPages, "#recentpages-content", 10, (current) => {return `<li><a style=\"font-size: 5vh;\" href=\"${current}\">${current}</a></li>`});
       });
     </script>
