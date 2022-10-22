@@ -1,26 +1,27 @@
 :root{
- --watch-screen-size: 454px;
+ --watch-screen-width: 100vw;
+ --watch-screen-height: 100vh;
 }
 .cycle{
- border-radius: var(--watch-screen-size);
+ border-radius: var(--watch-screen-width);
  border: solid black 1px;
- max-width: var(--watch-screen-size);
- max-height: var(--watch-screen-size);
- min-height: var(--watch-screen-size);
+ max-width: var(--watch-screen-width);
+ max-height: var(--watch-screen-height);
+ min-height: var(--watch-screen-height);
 }
 .cycle-top{
- margin-top: calc(var(--watch-screen-size)/7);
- margin-left: calc(var(--watch-screen-size)/7);
+ margin-top: calc(var(--watch-screen-height)/7);
+ margin-left: calc(var(--watch-screen-width)/7);
 }
 .cycle-middle{
- margin-top: calc(var(--watch-screen-size)*.5);
+ margin-top: calc(var(--watch-screen-height)*.5);
 }
 .cycle-width-middle{
-    max-width: var(--watch-screen-size);
+    max-width: var(--watch-screen-width);
 }
 .cycle-bottom{
- margin-top: calc(var(--watch-screen-size)*.8);
- margin-left: calc(var(--watch-screen-size)/7);
+ margin-top: calc(var(--watch-screen-height)*.8);
+ margin-left: calc(var(--watch-screen-width)/7);
 }
 .cycle-text-header{
     font-size: 8vh;
