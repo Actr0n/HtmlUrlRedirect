@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>URL</title>
+    <link href="index.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
     <script>
       function getStorageItem(item)
@@ -23,21 +24,39 @@
         window.location = $("#url").val();
         return false;
       }
-      function addPageToFavorites(){
+      function addPageToFavorites(url){
         var favorites = getStorageItem("favorites");
         if (favorites == null) favorites = [];
         
-        favorites.push($("#url").val());
+        favorites.push(url);
         setStorageItem("favorites", favorites);
         alert("Added to favorites");
+        window.location.reload();
+        return false;
+      }
+      function delFavorite(url){
+        var favorites = getStorageItem("favorites");
+        if (favorites == null) favorites = [];
+
+        favorites = favorites.filter((filterUrl) => { return filterUrl !== url; });
+
+        setStorageItem("favorites", favorites);
+        alert("Deleted favorite");
+        window.location.reload();
         return false;
       }
       function displayList(contentArray, contentSelector, maxItems, listItemFunction){
-        for(let recentPagesIndex = recentPages.length - 1; recentPagesIndex >= 0; recentPagesIndex--){
+        for(let recentPagesIndex = contentArray.length - 1; recentPagesIndex >= 0; recentPagesIndex--){
           var current = contentArray[recentPagesIndex];
           if (recentPagesIndex < maxItems)
             $(contentSelector).append(listItemFunction(current));
         }
+      }
+      function getBtnAddFavorite(fav){
+        return `<form onsubmit="return addPageToFavorites('${fav}')"><button type="submit" id="btnFavorites" class="cycle-text-body">Favorite</button></form>`;
+      }
+      function getBtnDelFavorite(fav){
+        return `<form onsubmit="return delFavorite('${fav}')"><button type="submit" id="btnDelFavorites" class="cycle-text-body">Unfavorite</button></form>`;
       }
       jQuery(function(){
         var recentPages = getStorageItem("recent");
@@ -47,22 +66,42 @@
         if (favorites == null) favorites = [];
         
         displayList(favorites, "#favorites-content", 10, (current) => {return `<li><a style=\"font-size: 5vh;\" href=\"${current}\">${current}</a><</li>`});
-        displayList(recentPages, "#recentpages-content", 10, (current) => {return `<li><a style=\"font-size: 5vh;\" href=\"${current}\">${current}</a></li>`});
+        displayList(recentPages, "#recentpages-content", 10, (current) => {return `<li class="cycle-text-body">${getBtnAddFavorite(current)}${getBtnDelFavorite(current)}<a href=\"${current}\">${current}</a></li>`});
       });
     </script>
   </head>
   <body>
-    <form onsubmit="return redirect()">
-      <input value="http://" autocomplete="off" style="width: 88vw; height: 23vh; font-size: 23vh;" id="url" type="text" />
-    </form>
-    <form onsubmit="return addPageToFavorites()">
-      <button type="button" style="width: 90vw; height: 25vh; font-size: 23vh;" id="btnFavorites" >Add Page To Favorites</button>
-    </form>
-    <div style="font-size: 8vh;">Favorites</div>
-    <ul id="favorites-content">
-    </ul>
-    <div style="font-size: 8vh;">Recent Pages</div>
-    <ul id="recentpages-content">
-    </ul>
+
+    <!-- URL Input -->
+    <div class="cycle">
+        <div class="cycle-middle">
+            <form onsubmit="return redirect()">
+                <input class="cycle-text-header cycle-width-middle" style="margin-top: calc(var(--watch-screen-size)*-1)" value="http://" autocomplete="off" id="url" type="text" />
+            </form>
+        </div>
+    </div>
+
+    <!-- Favourites -->
+    <div class="cycle">
+        <div class="cycle-top">
+            <div class="cycle-text-header">Favorites</div>
+            <div style="font-size: 8vh;"></div>
+        </div>
+        <div class="cycle-top">
+            <ul id="favorites-content">
+            </ul>
+        </div>
+    </div>
+
+    <!-- Recently Visited -->
+    <div class="cycle">
+        <div class="cycle-top">
+            <div class="cycle-text-header">Visited</div>
+        </div>
+        <div class="cycle-top">
+            <ul id="recentpages-content">
+            </ul>
+        </div>
+    </div>
   </body>
 </html>

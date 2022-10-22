@@ -1,0 +1,35 @@
+:root{
+ --watch-screen-size: 454px;
+}
+.cycle{
+ border-radius: var(--watch-screen-size);
+ border: solid black 1px;
+ max-width: var(--watch-screen-size);
+ max-height: var(--watch-screen-size);
+ min-height: var(--watch-screen-size);
+}
+.cycle-top{
+ margin-top: calc(var(--watch-screen-size)/7);
+ margin-left: calc(var(--watch-screen-size)/7);
+}
+.cycle-middle{
+ margin-top: calc(var(--watch-screen-size)*.5);
+}
+.cycle-width-middle{
+    max-width: var(--watch-screen-size);
+}
+.cycle-bottom{
+ margin-top: calc(var(--watch-screen-size)*.8);
+ margin-left: calc(var(--watch-screen-size)/7);
+}
+.cycle-text-header{
+    font-size: 8vh;
+    font-family: Sans-serif;
+}
+.cycle-text-body{
+    font-size: 3vh;
+    font-family: sans-serif;
+}
+a{
+    margin-left: 15vh;
+}
